@@ -22,9 +22,6 @@ RUN pip install -r requirements.txt
 # EXPOSE 8000
 EXPOSE 8000
 
-# Do django migrations
-RUN timeout 30 yes | python manage.py makemigrations
-
 # Start point
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
 
