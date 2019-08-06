@@ -26,6 +26,13 @@ services:
       - demo-bridge
     ports:
       - "3302:3306"
+  redis:
+    restart: always
+    image: redis:4.0.1-alpine
+    volumes:
+      - redis-data:/data
+    networks:
+      - demo-bridge
 
 networks:
   demo-bridge:
@@ -33,3 +40,4 @@ networks:
 
 volumes:
   mariadb-backup-data:
+  redis-data:

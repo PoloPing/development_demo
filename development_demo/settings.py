@@ -88,6 +88,19 @@ DATABASES = {
     }
 }
 
+
+REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')
+REDIS_CACHE_LOCATION = f'redis://{REDIS_HOST}:6379'
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': REDIS_CACHE_LOCATION,
+        'OPTIONS': {
+            'DB': 0,
+        }
+    },
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
