@@ -1,0 +1,35 @@
+version: '3.6'
+services:
+  demo-web:
+    restart: always
+    image: demo:latest
+    build: .
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - ./env/local.conf
+    ports:
+      - "8000:8000"
+    depends_on:
+      - maria-db
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    networks:
+      - demo-bridge
+  maria-db:
+    image: mariadb:10.4
+    restart: always
+    env_file:
+      - ./env/local.conf
+    volumes:
+      - mariadb-backup-data:/var/lib/mysql
+    networks:
+      - demo-bridge
+    ports:
+      - "3302:3306"
+
+networks:
+  demo-bridge:
+    driver: bridge
+
+volumes:
+  mariadb-backup-data:
