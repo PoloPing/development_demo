@@ -1,0 +1,95 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: demo-public
+  namespace: demo
+  labels:
+    app: demo
+spec:
+  type: LoadBalancer
+  loadBalancerIP: "35.236.172.184"
+  ports:
+    - name: demo-api
+      protocol: TCP
+      port: 8000
+      targetPort: 8000
+  selector:
+    app: demo-api
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: demo
+  namespace: demo
+  labels:
+    app: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: demo-api
+      protocol: TCP
+      port: 8000
+      targetPort: 8000
+  selector:
+    app: parker-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+  namespace: demo
+  labels:
+    app: demo
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: demo-api
+  template:
+    metadata:
+      labels:
+        app: demo-api
+    spec:
+      containers:
+        - name: demo-api
+          image: poloping/demo:latest
+          # if use latest tag need use 'Always', it will pull image every time
+          imagePullPolicy: Always
+          # parker image didn't have CMD or ENTRYPOINT
+          command: ["/usr/src/app/entrypoint.sh"]
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+          ports:
+            - containerPort: 8000
+              name: demo-api
+          envFrom:
+            - configMapRef:
+                name: demo-django
+
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.11
+          command: ["/cloud_sql_proxy",
+                    "-instances=cosmic-descent-249109:asia-east1:demo=tcp:3306",
+                    "-credential_file=/secrets/cloudsql/credentials.json"]
+          securityContext:
+            runAsUser: 2  # non-root user
+            allowPrivilegeEscalation: false
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: db-credentials
