@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+AUTH_USER_MODEL = 'user.User'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'user',
+    'mongo_test_app',
 ]
 
 MIDDLEWARE = [
@@ -85,9 +88,19 @@ DATABASES = {
         'OPTIONS': {
             'sql_mode': 'traditional',
         }
+    },
+    'mongo': {
+        'ENGINE': 'djongo',
+        'NAME': os.environ.get('MONGO_DATABASE'),
+        'HOST': os.environ.get('MONGO_SERVICE'),
+        'USER': os.environ.get('MONGO_INITDB_ROOT_USERNAME'),
+        'PASSWORD': os.environ.get('MONGO_INITDB_ROOT_PASSWORD'),
+        'ENFORCE_SCHEMA': False,
     }
+
 }
 
+DATABASE_ROUTERS = ['development_demo.router.ModelMetaRouter']
 
 REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')
 REDIS_CACHE_LOCATION = f'redis://{REDIS_HOST}:6379'
