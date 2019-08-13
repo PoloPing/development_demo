@@ -12,6 +12,7 @@ services:
       - "8000:8000"
     depends_on:
       - maria-db
+      - mongo
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     networks:
       - demo-bridge
@@ -25,12 +26,23 @@ services:
     networks:
       - demo-bridge
     ports:
-      - "3302:3306"
+      - "3306:3306"
   redis:
     restart: always
     image: redis:4.0.1-alpine
     volumes:
       - redis-data:/data
+    networks:
+      - demo-bridge
+  mongo:
+    image: mongo
+    restart: always
+    env_file:
+      - ./env/local.conf
+    ports:
+      - "27017:27017"
+    volumes:
+      - mariadb-backup-data:/data/db
     networks:
       - demo-bridge
 
@@ -40,4 +52,5 @@ networks:
 
 volumes:
   mariadb-backup-data:
+  mongo-backup-data:
   redis-data:
