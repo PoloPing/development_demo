@@ -14,8 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from development_demo.drf_routers import SharedAPIRootRouter
+from django.conf import settings
+
+
+def drf_api_urls():
+    from importlib import import_module
+    for app in settings.INSTALLED_APPS:
+        try:
+            import_module(app + '.urls')
+        except (ImportError, AttributeError):
+            pass
+    return SharedAPIRootRouter.shared_router.urls
+
 
 urlpatterns = [
+    path('', include(drf_api_urls())),
     path('admin/', admin.site.urls),
 ]
+
