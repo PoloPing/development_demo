@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'mongo_test_app',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -100,7 +101,7 @@ DATABASES = {
 
 }
 
-DATABASE_ROUTERS = ['development_demo.router.ModelMetaRouter']
+DATABASE_ROUTERS = ['development_demo.db_routers.ModelMetaRouter']
 
 REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')
 REDIS_CACHE_LOCATION = f'redis://{REDIS_HOST}:6379'
@@ -112,6 +113,11 @@ CACHES = {
             'DB': 0,
         }
     },
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.LimitOffsetPagination',
 }
 
 # Password validation
