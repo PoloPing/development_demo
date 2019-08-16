@@ -12,3 +12,7 @@ data:
   MYSQL_PASSWORD: pass1234
   MYSQL_PORT: '3306'
   REDIS_HOST: redis
+  MONGO_SERVICE: mongo
+  MONGO_DATABASE: demo
+  DJANGO_SETTINGS_MODULE: development_demo.settings.local
+  SECRET_KEY: 'xb*(%$!8#d#93$3(3ckg(swi8h0ncb66yhc=ltj9ohy48m5r*9'
