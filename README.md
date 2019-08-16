@@ -1,5 +1,5 @@
 ## Demo
-Basis Django Project with MariaDb and Redis(Cache)
+Basis Django Project with MariaDb and Redis(Cache), Mongo, DRF
 
 #### Install Docker
 https://docs.docker.com/docker-for-mac/install/
@@ -9,6 +9,7 @@ git clone https://github.com/PoloPing/development_demo.git
 
 #### Run Repository
 docker-compose -f dev_backend.yaml up -d
+
 Notify: The first time starts MariaDb will be slow, so please wait about 10s
 
 #### Check URL
