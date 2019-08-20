@@ -1,0 +1,8 @@
+[run]
+omit =
+    */__init__.py
+    */migrations/*
+    */apps.py
+    development_demo/wsgi.py
+    manage.py
+    development_demo/db_routers.py

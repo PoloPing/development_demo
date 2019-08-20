@@ -18,9 +18,9 @@ class ModelMetaRouter(object):
 
     def allow_relation(self, obj1, obj2, **hints):
         # only allow relations within a single database
-        if APP_DB_MAPPING_TABLE.get(obj1._meta.app_label, None) == \
-           APP_DB_MAPPING_TABLE.get(obj2._meta.app_label, None):
-            return True
+        # if APP_DB_MAPPING_TABLE.get(obj1._meta.app_label, None) == \
+        #    APP_DB_MAPPING_TABLE.get(obj2._meta.app_label, None):
+        return True
         return None
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
