@@ -17,3 +17,6 @@ connect to http://localhost:8000/ and you will see
 
 ![Alt text](pictures/index.png?raw=true)
 
+#### Test Command
+pytest -s --cov-report term --cov=./ --cov-config=.coveragerc
+
