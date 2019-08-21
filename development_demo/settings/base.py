@@ -38,10 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user',
-    'mongo_test_app',
     'rest_framework',
 ]
+
+START_APPS = [
+    'user',
+    'mongo_test_app',
+]
+
+INSTALLED_APPS += START_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

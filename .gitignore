@@ -100,3 +100,6 @@ db.sqlite3
 
 # Upload Folder
 upload/*
+
+#intelliJ settings
+*.iml
