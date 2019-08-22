@@ -25,4 +25,8 @@ EXPOSE 8000
 # Start point
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
 
+# If you wanna use IntelliJ docker-compose debugger
+# enable it and disable entrypoint then rebuild image
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
 

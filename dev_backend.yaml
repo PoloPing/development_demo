@@ -13,7 +13,6 @@ services:
     depends_on:
       - maria-db
       - mongo
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     networks:
       - demo-bridge
   maria-db:

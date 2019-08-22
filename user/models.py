@@ -1,8 +1,8 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from development_demo.libs.models import ModelSerializeMixin
 
 
-class User(AbstractUser):
+class User(AbstractUser, ModelSerializeMixin):
     """
     Users within the Django authentication system are represented by this
     model.
