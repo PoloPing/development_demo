@@ -6,6 +6,9 @@ from mongo_test_app.serializers import EntrySerializer
 
 class EntryViewSet(mixins.ListModelMixin,
                    mixins.RetrieveModelMixin,
+                   mixins.CreateModelMixin,
+                   mixins.UpdateModelMixin,
+                   mixins.DestroyModelMixin,
                    viewsets.GenericViewSet):
     model = Entry
     serializer_class = EntrySerializer

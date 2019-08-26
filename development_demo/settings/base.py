@@ -102,6 +102,9 @@ DATABASES = {
         'USER': os.environ.get('MONGO_INITDB_ROOT_USERNAME'),
         'PASSWORD': os.environ.get('MONGO_INITDB_ROOT_PASSWORD'),
         'ENFORCE_SCHEMA': False,
+        'TEST': {
+            'DEPENDENCIES': ['default'],
+        },
     }
 
 }

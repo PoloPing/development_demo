@@ -6,4 +6,4 @@ class EntrySerializer(serializers.DjongoModelSerializer):
 
     class Meta:
         model = Entry
-        fields = '__all__'
+        fields = ('author', 'blog', 'headline', )
