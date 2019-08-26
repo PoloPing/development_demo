@@ -73,7 +73,7 @@ class TestViews:
         assert resp.status_code == status.HTTP_200_OK
         assert resp.data == {'author': user.id, 'blog': {'name': '321', 'tagline': '321'}, 'headline': '777'}
 
-    def test_user_partial_update(self):
+    def test_entry_partial_update(self):
         user = mixer.blend('user.User')
         blog = {'name': '123', 'tagline': '123'}
         entry = mixer.blend('mongo_test_app.Entry',
@@ -88,7 +88,7 @@ class TestViews:
         assert resp.status_code == status.HTTP_200_OK
         assert resp.data['headline'] == '3333'
 
-    def test_user_destroy(self):
+    def test_entry_destroy(self):
         user = mixer.blend('user.User')
         blog = {'name': '123', 'tagline': '123'}
         entry = mixer.blend('mongo_test_app.Entry',
