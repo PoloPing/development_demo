@@ -1,5 +1,6 @@
 ## Demo
-Basis Django Project with MariaDb and Redis(Cache), Mongo, DRF
+The demonstration of Django project integrated with Djongo(ORM with Mongo Enginee), Pytest.
+It includes the docker-compose file for local development and K8S yaml file for demonstrating to deploy on Kubernetes.
 
 #### Install Docker
 https://docs.docker.com/docker-for-mac/install/
